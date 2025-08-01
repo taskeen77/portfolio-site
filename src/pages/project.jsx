@@ -31,7 +31,7 @@ const projects = [
   {
     title: 'SubMind',
     description:
-      'Subscription Mindmap (SubMind) is designed to help users efficiently manage and track their subscriptions. It offers full CRUD functionality, a visually rich dashboard with insightful analytics, and a dedicated reminder system to stay ahead of upcoming renewals.',
+      'Subscription Mindmap (SubMind) is a full-featured web app built to help users manage and visualize their subscriptions with ease. It includes full CRUD operations, an intuitive dashboard with interactive analytics. Note: This app is hosted on Replit. If the server is temporarily inactive, it may take a few moments to spin up or fall back to a minimal display.',
     stack: ['React', 'Chart.js', 'Lucide Icons', 'Tailwind CSS', 'CRUD', 'LocalStorage'],
     github: 'https://github.com/taskeen77/SubMind',
     demo: 'https://taskeen77.github.io/SubMind/',
