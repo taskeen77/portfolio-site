@@ -148,7 +148,8 @@ const ContactForm = () => {
           </h2>
           
           <form
-            action="https://formspree.io/f/xpwljaoe"  // 🔁 Replace with your actual Formspree ID
+            // action="https://formspree.io/f/xpwljaoe"  // 🔁 Replace with your actual Formspree ID
+            action="https://formspree.io/f/myzpowlo"
             method="POST"
             style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}
           >

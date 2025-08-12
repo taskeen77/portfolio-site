@@ -119,12 +119,15 @@ const Hero = () => {
 
                 {/* Image - 3/5 */}
                 <div className="lg:col-span-3 flex justify-center">
-                    <img
-                        src="src/assets/portfolio.jpg"
-                        alt="Abstract Portfolio Illustration"
-                        className="w-full max-w-3xl rounded-xl shadow-xl object-cover"
-                        style={{ height: '20rem' }}
-                    />
+                <img
+  src={`${import.meta.env.BASE_URL}assets/portfolio-new.jpg`}
+  alt="Abstract Portfolio Illustration"
+  className="w-full max-w-3xl rounded-xl shadow-xl object-cover"
+  style={{ height: '20rem' }}
+/>
+
+
+
                 </div>
             </div>
         </section>

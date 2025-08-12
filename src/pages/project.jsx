@@ -2,31 +2,6 @@
 
 import { Code2, Globe, FolderGit2 } from 'lucide-react';
 
-// const projects = [
-//   {
-//     title: 'SubMind',
-//     description:
-//       'Subscription Mindmap (SubMind) is designed to help users efficiently manage and track their subscriptions. It offers full CRUD functionality, a visually rich dashboard with insightful analytics, and a dedicated reminder system to stay ahead of upcoming renewals.',
-//     stack: ['React', 'Chart.js', 'Lucide Icons', 'Tailwind CSS', 'CRUD', 'LocalStorage'],
-//     github: 'https://github.com/taskeen77/SubMind',
-//     demo: 'https://taskeen77.github.io/SubMind/',
-//     image: 'src/assets/SubMind.png',
-//     accent: '#059669',
-//     bg: '#f0fdfa',
-//   },
-//   {
-//     title: 'Book Inventory Manager',
-//     description:
-//       'A simple yet complete Book Inventory CRUD app built with Angular and Bootstrap. It uses JSON Server for backend simulation, deployed on Replit, and features graceful fallback using a local JSON file when the server is offline.',
-//     stack: ['Angular', 'Bootstrap', 'JSON Server', 'TypeScript', 'CRUD', 'Replit'],
-//     github: 'https://github.com/taskeen77/books-CRUD',
-//     demo: 'https://25c1ab03-a696-49ec-8068-ba345783ecc4-00-38igbtid0xv6h.sisko.replit.dev:4200/books-CRUD/books',
-//     image: 'src/assets/book inventory.png',
-//     accent: '#7b3f00',
-//     bg: '#fef6f0',
-//   },
-// ];
-
 const projects = [
   {
     title: 'SubMind',
@@ -35,7 +10,7 @@ const projects = [
     stack: ['React', 'Chart.js', 'Lucide Icons', 'Tailwind CSS', 'CRUD', 'LocalStorage'],
     github: 'https://github.com/taskeen77/SubMind',
     demo: 'https://taskeen77.github.io/SubMind/',
-    image: 'src/assets/SubMind.png',
+    image: `${import.meta.env.BASE_URL}assets/SubMind.png`,
     accent: '#059669',
     bg: '#f0fdfa',
   },
@@ -46,7 +21,7 @@ const projects = [
     stack: ['Angular', 'Bootstrap', 'JSON Server', 'TypeScript', 'CRUD', 'Replit'],
     github: 'https://github.com/taskeen77/books-CRUD',
     demo: 'https://25c1ab03-a696-49ec-8068-ba345783ecc4-00-38igbtid0xv6h.sisko.replit.dev:4200/books-CRUD/books',
-    image: 'src/assets/book inventory.png',
+    image: `${import.meta.env.BASE_URL}assets/book inventory.png`,
     accent: '#7b3f00',
     bg: '#fef6f0',
   },
@@ -55,10 +30,9 @@ const projects = [
     description:
       'A visually faithful clone of the Imperium Dynamics landing page, developed using Angular and styled with Ng Zorro. Built with a component-first architecture, responsive layout, and custom theming to replicate brand identity.',
     stack: ['Angular', 'Ng Zorro', 'SCSS', 'TypeScript', 'Responsive Design', 'UI Clone'],
-    // github: 'https://github.com/your-username/imperium-clone',
     demo: 'https://www.loom.com/share/40c9865eca7d4990bebf53b2a377a03c',
-    image: 'src/assets/imperium clone.png',              
-    accent: '#6b21a8',  // Purple tone matching Imperium
+    image: `${import.meta.env.BASE_URL}assets/imperium Clone.png`,
+    accent: '#6b21a8',
     bg: '#f9f5ff',
   },
   {
@@ -66,24 +40,21 @@ const projects = [
     description:
       'Mini UI is a collection of modern, reusable interface components built with both Angular (using Ng Zorro) and React (using Tailwind). Designed for rapid prototyping and consistent UI development, it includes polished navbars, buttons, cards, and form components — all themed for visual harmony and adaptability.',
     stack: ['Angular', 'React', 'Ng Zorro', 'Tailwind CSS', 'TypeScript', 'Component Library'],
-    // github: 'https://github.com/taskeen77/mini-ui', // update if needed
-    demo: 'https://www.loom.com/share/cf3e5dd15e054b02bca17899a6b5e01c', // optional loom/video link
-    image: 'src/assets/mini-ui.png', // replace with actual screenshot
-    accent: '#0d9488',  // Teal-600 (Tailwind palette)
-    bg: '#f0fdfa',     // soft light-blue background
+    demo: 'https://www.loom.com/share/cf3e5dd15e054b02bca17899a6b5e01c',
+    image: `${import.meta.env.BASE_URL}assets/mini-ui.png`,
+    accent: '#0d9488',
+    bg: '#f0fdfa',
   },
   {
     title: 'Navbar Showcase',
-    description: 'A collection responsive navigation bar designs built with HTML, SCSS, Angular, ng-zorro and modern layout practices.',
-    stack: ['HTML', 'SCSS', 'Angular' ,'Responsive Design', 'Ng-Zorro'],
-    image: 'src/assets/Navbars.png',
+    description: 'A collection of responsive navigation bar designs built with HTML, SCSS, Angular, ng-zorro and modern layout practices.',
+    stack: ['HTML', 'SCSS', 'Angular', 'Responsive Design', 'Ng-Zorro'],
+    image: `${import.meta.env.BASE_URL}assets/Navbars.png`,
     accent: '#1d4ed8',
     bg: '#e1faee',
   },
-
-  
-  
 ];
+
 
 const slate = '#0f172a';
 
