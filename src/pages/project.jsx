@@ -1,4 +1,5 @@
 import { ArrowRight, FolderGit2, Globe, Server } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 const asset = (path) => `${import.meta.env.BASE_URL}assets/${path}`;
 
@@ -125,7 +126,7 @@ const ProjectVisual = ({ project }) => {
   );
 };
 
-const ProjectCard = ({ project, featured = false }) => {
+const ProjectCard = ({ project, featured = false, index = 0 }) => {
   const githubLinks = project.githubLinks ?? (
     project.github
       ? [{ label: "GitHub", href: project.github, icon: FolderGit2 }]
@@ -138,6 +139,7 @@ const ProjectCard = ({ project, featured = false }) => {
       style={{
         "--project-accent": project.accent,
         "--project-bg": project.bg,
+        "--project-index": index,
       }}
     >
       <ProjectVisual project={project} />
@@ -173,8 +175,36 @@ const ProjectCard = ({ project, featured = false }) => {
 };
 
 export const FeaturedProjects = () => {
+  const projectsRef = useRef(null);
+
+  useEffect(() => {
+    const section = projectsRef.current;
+    if (!section) return undefined;
+
+    const revealItems = section.querySelectorAll(".projects-section-header, .project-card");
+    if (!("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -8%" },
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div>
+    <div ref={projectsRef}>
       <div className="section-header projects-section-header">
         <p className="eyebrow">Projects</p>
         <h2 className="section-title">Full-stack and frontend projects built with practical engineering.</h2>
@@ -186,7 +216,7 @@ export const FeaturedProjects = () => {
 
       <div className="projects-grid projects-grid--featured">
         {projects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} featured={index === 0} />
+          <ProjectCard key={project.title} project={project} featured={index === 0} index={index} />
         ))}
       </div>
     </div>
@@ -194,9 +224,37 @@ export const FeaturedProjects = () => {
 };
 
 const Projects = () => {
+  const projectsRef = useRef(null);
+
+  useEffect(() => {
+    const section = projectsRef.current;
+    if (!section) return undefined;
+
+    const revealItems = section.querySelectorAll(".projects-section-header, .project-card");
+    if (!("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -8%" },
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="projects" className="projects-page">
-      <div className="section-shell">
+      <div ref={projectsRef} className="section-shell">
         <div className="section-header projects-section-header">
           <p className="eyebrow">Projects</p>
           <h1 className="section-title">A complete view of the portfolio.</h1>
@@ -208,7 +266,7 @@ const Projects = () => {
 
         <div className="projects-grid">
           {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} featured={index === 0} />
+            <ProjectCard key={project.title} project={project} featured={index === 0} index={index} />
           ))}
         </div>
       </div>

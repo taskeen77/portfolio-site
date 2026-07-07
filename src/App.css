@@ -964,6 +964,7 @@
 .about-stack {
   grid-column: 1 / -1;
   scroll-margin-top: 5rem;
+  padding-bottom: clamp(1rem, 3vw, 2rem);
 }
 
 .about-stack__heading {
@@ -1725,6 +1726,15 @@
   padding: 4rem 0.35rem 1rem;
 }
 
+.projects-section-header {
+  opacity: 0;
+  translate: 0 14px;
+}
+
+.projects-section-header.is-visible {
+  animation: section-reveal-up 560ms ease-out forwards;
+}
+
 .projects-grid--featured {
   grid-template-columns: 1fr;
 }
@@ -1743,7 +1753,13 @@
     linear-gradient(180deg, color-mix(in srgb, var(--project-accent, #315cff) 7%, transparent), transparent 42%),
     var(--project-bg, #fff);
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.045);
+  opacity: 0;
+  translate: 0 18px;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.project-card.is-visible {
+  animation: project-card-reveal 560ms ease-out calc(var(--project-index) * 70ms) forwards;
 }
 
 .project-card::before {
@@ -1960,6 +1976,28 @@
   border-top: 1px solid rgba(15, 23, 42, 0.08);
   color: #0f172a;
   font-size: 0.66rem;
+  opacity: 0;
+  translate: 8px 0;
+}
+
+.project-card.is-visible .product-preview__row {
+  animation: product-row-reveal 360ms ease-out calc(220ms + (var(--project-index) * 20ms)) forwards;
+}
+
+.project-card.is-visible .product-preview__row:nth-child(2) {
+  animation-delay: 280ms;
+}
+
+.project-card.is-visible .product-preview__row:nth-child(3) {
+  animation-delay: 340ms;
+}
+
+.project-card.is-visible .product-preview__row:nth-child(4) {
+  animation-delay: 400ms;
+}
+
+.project-card.is-visible .product-preview__row:nth-child(5) {
+  animation-delay: 460ms;
 }
 
 .product-preview__row:first-child {
@@ -1999,15 +2037,36 @@
   align-items: start;
 }
 
+.contact-copy,
+.contact-form {
+  opacity: 0;
+  translate: 0 16px;
+}
+
+.contact-copy.is-visible {
+  animation: section-reveal-up 560ms ease-out forwards;
+}
+
 .contact-form {
   display: grid;
   gap: 1rem;
+}
+
+.contact-form.is-visible {
+  animation: contact-form-reveal 600ms ease-out 80ms forwards;
 }
 
 .contact-form label {
   display: grid;
   gap: 0.45rem;
   font-weight: 600;
+  opacity: 0;
+  translate: 0 8px;
+}
+
+.contact-form label.is-visible,
+.contact-form button.is-visible {
+  animation: contact-field-reveal 400ms ease-out calc(180ms + (var(--contact-index) * 70ms)) forwards;
 }
 
 .contact-form input,
@@ -2018,6 +2077,17 @@
   border: 1px solid rgba(15, 23, 42, 0.12);
   background: #fff;
   color: var(--text);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.contact-form input:hover,
+.contact-form textarea:hover {
+  border-color: rgba(49, 92, 255, 0.22);
+}
+
+.contact-form button {
+  opacity: 0;
+  translate: 0 8px;
 }
 
 .contact-form input:focus,
@@ -2030,6 +2100,41 @@
 .project-card__links a:focus {
   outline: 3px solid rgba(65, 84, 255, 0.2);
   outline-offset: 2px;
+}
+
+@keyframes section-reveal-up {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes project-card-reveal {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes product-row-reveal {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes contact-form-reveal {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes contact-field-reveal {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 @media (min-width: 768px) {
