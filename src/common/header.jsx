@@ -1,246 +1,262 @@
-import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Download, Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import resumeFile from "../assets/Resume/TaskeenSadiq - Resume.pdf";
 
 const sectionLinks = [
-  { name: "PORTFOLIO", id: "portfolio" },
-  { name: "ABOUT", id: "about" },
-  { name: "SERVICES", id: "services" },
-  { name: "EDUCATION", id: "education" },
-  { name: "CONTACT", id: "contact" },
+  { label: "Home", id: "portfolio" },
+  { label: "About", id: "about" },
+  { label: "Experience", id: "experience" },
+  { label: "Projects", id: "featured-projects" },
+  { label: "Skills", id: "skills" },
+  { label: "Education", id: "education" },
+  { label: "Contact", id: "contact" },
 ];
 
-const routeLinks = [
-  { name: "Projects", to: "/projects" },
-];
+const focusableSelector =
+  'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("portfolio");
+  const drawerRef = useRef(null);
+  const menuButtonRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+  const closeDrawer = useCallback((restoreFocus = true) => {
+    setIsOpen(false);
+    if (restoreFocus) {
+      window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+    }
   }, []);
 
-  const isMobile = screenWidth <= 768;
+  const scrollToSection = useCallback(
+    (id) => {
+      const scroll = () => {
+        const section = document.getElementById(id);
+        if (!section) return;
 
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+        section.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth",
+          block: "start",
+        });
+      };
+
+      if (location.pathname !== "/") {
+        navigate("/");
+        window.setTimeout(scroll, 80);
+      } else {
+        scroll();
+      }
+
+      closeDrawer(false);
+    },
+    [closeDrawer, location.pathname, navigate],
+  );
+
+  const handleAnchorClick = (event, id) => {
+    event.preventDefault();
+    setActiveSection(id);
+    scrollToSection(id);
+
+    // Pointer clicks should not keep a second nav item visually focused while
+    // the active section changes during subsequent scrolling.
+    if (event.detail > 0) {
+      event.currentTarget.blur();
     }
   };
 
-  const handleNavClick = (id) => {
-    if (location.pathname !== "/") {
-      navigate("/");
-      // Wait for route to load, then scroll
-      setTimeout(() => scrollToSection(id), 100);
-    } else {
-      scrollToSection(id);
-    }
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname !== "/") return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActiveSection(visible[0].target.id);
+      },
+      { rootMargin: "-18% 0px -68%", threshold: [0, 0.15, 0.5] },
+    );
+
+    const observed = new Set();
+    const observeAvailableSections = () => {
+      sectionLinks.forEach(({ id }) => {
+        const section = document.getElementById(id);
+        if (section && !observed.has(section)) {
+          observed.add(section);
+          observer.observe(section);
+        }
+      });
+    };
+
+    observeAvailableSections();
+    const mutationObserver = new MutationObserver(observeAvailableSections);
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      mutationObserver.disconnect();
+      observer.disconnect();
+    };
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.requestAnimationFrame(() => drawerRef.current?.querySelector(focusableSelector)?.focus());
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeDrawer();
+        return;
+      }
+
+      if (event.key !== "Tab" || !drawerRef.current) return;
+      const focusable = [...drawerRef.current.querySelectorAll(focusableSelector)];
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeDrawer, isOpen]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)");
+    const closeAtDesktop = (event) => {
+      if (event.matches) closeDrawer(false);
+    };
+    media.addEventListener("change", closeAtDesktop);
+    return () => media.removeEventListener("change", closeAtDesktop);
+  }, [closeDrawer]);
+
+  const renderLinks = (mobile = false) => (
+    <ul className={mobile ? "mobile-nav-list" : "site-nav__list"}>
+      {sectionLinks.map(({ label, id }) => {
+        const isActive = location.pathname === "/" && activeSection === id;
+        return (
+          <li key={id}>
+            <a
+              href={`#${id}`}
+              className={isActive ? "is-active" : undefined}
+              aria-current={isActive ? "location" : undefined}
+              onClick={(event) => handleAnchorClick(event, id)}
+            >
+              {label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  );
 
   return (
-    <header style={{
-      position: "sticky",
-      top: 0,
-      zIndex: 50,
-      backgroundColor: "rgba(10,10,10,0.85)",
-      backdropFilter: "blur(12px)",
-      borderBottom: "1px solid #1f2937",
-      boxShadow: "0 2px 4px rgba(0,0,0,0.4)",
-      width: "100%",
-    }}>
-      {/* <div style={{
-        // maxWidth: "1200px",
-        margin: "0 auto",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "1rem 7rem",
-      }}> */}
-      <div style={{
-  margin: "0 auto",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: isMobile ? "1rem 1rem" : "1rem 7rem",
-}}>
-
-        {/* Logo */}
-        <h1 style={{
-          fontSize: "1.8rem",
-          fontWeight: "bold",
-          fontStyle: "italic",
-          fontFamily: "'Playfair Display', serif",
-          color: "#f0abfc",
-          whiteSpace: "nowrap",
-
-        }}>
-          Taskeen Sadiq
-        </h1>
-
-        {/* Desktop nav */}
-        {!isMobile && (
-          <nav style={{
-            display: "flex",
-            gap: "1.5rem",
-            fontSize: "0.85rem",
-            textTransform: "uppercase",
-            fontWeight: "500",
-            letterSpacing: "1px",
-            alignItems: "center",
-          }}>
-            {sectionLinks.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => handleNavClick(item.id)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "#ffffff",
-                  cursor: "pointer",
-                  transition: "color 0.3s",
-                }}
-                onMouseEnter={(e) => (e.target.style.color = "#f0abfc")}
-                onMouseLeave={(e) => (e.target.style.color = "#ffffff")}
-              >
-                {item.name}
-              </button>
-            ))}
-
-            {routeLinks.map((item) => (
-              <Link
-                key={item.name}
-                to={item.to}
-                style={{
-                  color: "#ffffff",
-                  textDecoration: "none",
-                  transition: "color 0.3s",
-                }}
-                onMouseEnter={(e) => (e.target.style.color = "#f0abfc")}
-                onMouseLeave={(e) => (e.target.style.color = "#ffffff")}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-        )}
-
-        {/* Contact Button */}
-        {!isMobile && (
-          <button
-            onClick={() => handleNavClick("contact")}
-            style={{
-              backgroundColor: "#f9fafb",
-              color: "#1f2937",
-              fontWeight: "bold",
-              fontSize: "0.85rem",
-              padding: "0.5rem 1rem",
-              borderRadius: "8px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-              marginLeft: "1rem",
-              transition: "all 0.3s ease",
-              border: "none",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = "#f0abfc")}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = "#f9fafb")}
+    <header className={`site-header${isScrolled ? " is-scrolled" : ""}`}>
+      <div className="site-header__inner mx-auto flex h-14 w-full max-w-[1320px] flex-nowrap items-center justify-between px-2 sm:px-3">
+        <div className="site-header__side site-header__side--brand flex min-w-0 flex-1 justify-start">
+          <a
+            className="site-brand"
+            href="#portfolio"
+            aria-label="Taskeen Sadiq — home"
+            onClick={(event) => handleAnchorClick(event, "portfolio")}
           >
-            CONTACT ME 
-          </button>
-        )}
+            <span className="site-brand__mark" aria-hidden="true">TS</span>
+            <span className="site-brand__copy">
+              <strong>Taskeen Sadiq</strong>
+              <small>Software Engineer</small>
+            </span>
+          </a>
+        </div>
 
-        {/* Mobile Menu Toggle */}
-        {isMobile && (
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-            style={{
-              backgroundColor: "#f9fafb",
-              padding: "0.4rem",
-              borderRadius: "6px",
-              color: "#1f2937",
-              boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
-            }}
+        <nav className="site-nav hidden shrink-0 md:block" aria-label="Primary navigation">
+          {renderLinks()}
+        </nav>
+
+        <div className="site-header__side flex min-w-0 flex-1 items-center justify-end">
+          <a
+            className="site-header__cta hidden md:inline-flex"
+            href={resumeFile}
+            download="Taskeen-Sadiq-Resume.pdf"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        )}
-      </div>
-
-      {/* Mobile Dropdown */}
-      {isMobile && isOpen && (
-        <div style={{
-          backgroundColor: "rgba(240, 171, 252, 0.95)",
-          padding: "1.25rem 1.5rem",
-          borderBottomLeftRadius: "1rem",
-          borderBottomRightRadius: "1rem",
-        }}>
-          {sectionLinks.map((item) => (
-            <button
-              key={item.name}
-              onClick={() => handleNavClick(item.id)}
-              style={{
-                display: "block",
-                marginBottom: "1rem",
-                color: "#fff",
-                fontWeight: "600",
-                fontSize: "0.9rem",
-                textTransform: "uppercase",
-                background: "none",
-                border: "none",
-                textAlign: "left",
-              }}
-            >
-              {item.name}
-            </button>
-          ))}
-
-          {routeLinks.map((item) => (
-            <Link
-              key={item.name}
-              to={item.to}
-              onClick={() => setIsOpen(false)}
-              style={{
-                display: "block",
-                marginBottom: "1rem",
-                color: "#fff",
-                fontWeight: "600",
-                fontSize: "0.9rem",
-                textTransform: "uppercase",
-                textDecoration: "none",
-              }}
-            >
-              {item.name}
-            </Link>
-          ))}
-
+            <span>Download Resume</span>
+            <Download size={14} strokeWidth={2} aria-hidden="true" />
+          </a>
           <button
-            onClick={() => handleNavClick("contact")}
-            style={{
-              display: "block",
-              backgroundColor: "#f9fafb",
-              color: "#1f2937",
-              fontWeight: "bold",
-              textAlign: "center",
-              padding: "0.6rem 1rem",
-              borderRadius: "8px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-              width: "100%",
-              border: "none",
-            }}
+            ref={menuButtonRef}
+            className="site-header__menu inline-flex md:hidden"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setIsOpen(true)}
           >
-            CONTACT ME
+            <Menu size={21} aria-hidden="true" />
           </button>
         </div>
-      )}
+      </div>
+
+      <div
+        className={`mobile-nav-layer md:hidden${isOpen ? " is-open" : ""}`}
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+      >
+        <button
+          className="mobile-nav-backdrop"
+          type="button"
+          tabIndex={-1}
+          aria-label="Close navigation menu"
+          onClick={() => closeDrawer()}
+        />
+        <div
+          ref={drawerRef}
+          id="mobile-navigation"
+          className="mobile-nav-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+        >
+          <div className="mobile-nav-heading">
+            <span>Menu</span>
+            <button type="button" aria-label="Close navigation menu" onClick={() => closeDrawer()}>
+              <X size={21} aria-hidden="true" />
+            </button>
+          </div>
+          <nav aria-label="Mobile navigation">{renderLinks(true)}</nav>
+          <a
+            className="site-header__cta site-header__cta--mobile"
+            href={resumeFile}
+            download="Taskeen-Sadiq-Resume.pdf"
+            tabIndex={isOpen ? 0 : -1}
+          >
+            Download Resume <Download size={15} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
     </header>
   );
 }

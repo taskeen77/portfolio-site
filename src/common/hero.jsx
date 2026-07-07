@@ -1,137 +1,119 @@
-// import React from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faPaperPlane, faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import {
+  ArrowRight,
+  CheckCircle2,
+  Download,
+  Github,
+} from "lucide-react";
+import heroImage from "../assets/images/hero.png";
+import resumeFile from "../assets/Resume/TaskeenSadiq - Resume.pdf";
 
-// const Hero = () => {
-//     return (
-//         <section id="portfolio" className="bg-gray-50 text-gray-900 py-24" style={{ padding: '4rem 2rem 3rem 4rem' }}>
-//             <div className="max-w-full mx-0 px-6 flex justify-between flex-col-reverse md:flex-row items-center gap-20">
+const technologies = ["React", "Next.js", "Angular", "Node.js", "NestJS"];
 
-//                 {/* Text Content */}
-//                 <div className="text-center md:text-left space-y-6 ">
-//                     <p className="text-[28px] text-gray-600 font-extrabold mb-0">Hi</p>
-//                     <h1 className="md:text-6xl font-extrabold mt-0 tracking-tight leading-tight text-gray-900">
-//                         <p className="text-[28px] text-gray-600 font-extrabold">I'm <span className="text-fuchsia-600">Haniya</span></p>
-//                         <p className="text-[28px] text-gray-600 font-extrabold">a frontend developer</p>
-//                     </h1>
-//                     <br />
-//                     <p className="text-gray-700 text-base md:text-lg max-w-xl mx-auto md:mx-0">
-//                         I design and build beautiful, fast, and accessible web experiences using <strong>React</strong>, <strong>Angular</strong>, and cutting-edge tools. Let's create something great!
-//                     </p>
-//                     <br />
-
-//                     {/* Buttons */}
-//                     {/* Buttons */}
-//                     <div className="flex flex-row flex-wrap gap-4 justify-center md:justify-start mt-6">
-//                         {/* <div className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-6 py-3 rounded-[8px] text-sm font-semibold shadow-md transition duration-200 flex items-center gap-2">
-//                             <button style={{ padding: '8px', cursor: 'pointer' }}>
-//                                 <FontAwesomeIcon icon={faPaperPlane} />
-//                                 <span style={{ paddingLeft: '6px' }}>Hire Me</span>
-//                             </button>
-//                         </div> */}
-//                         <a
-//                             href="https://mail.google.com/mail/?view=cm&fs=1&to=taskeensadiq49@gmail.com&su=Freelance%20Inquiry"
-//                             target="_blank"
-//                             rel="noopener noreferrer"
-//                             className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-5 py-2 rounded-[8px] text-sm font-semibold shadow-md transition duration-200 flex items-center h-[2.5rem] gap-2"
-//                         >
-//                             <FontAwesomeIcon icon={faPaperPlane} />
-//                             <span>Hire Me</span>
-//                         </a>
-
-//                         <div className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-[8px] text-sm font-semibold shadow-md transition duration-200 flex items-center gap-2 h-[2.5rem]">
-//                             <button style={{ padding: '8px', cursor: 'pointer' }}>
-//                                 <FontAwesomeIcon icon={faBriefcase} />
-//                                 <span style={{ paddingLeft: '6px' }}>View Projects</span>
-//                             </button>
-//                         </div>
-//                     </div>
-
-//                 </div>
-
-//                 {/* Profile Image */}
-//                 <div className="flex justify-center">
-//                     <img
-//                         src="src\assets\portfolio.jpg"
-//                         alt="Profile"
-//                         className=" w-100 h-100 md:w-80 md:h-80 object-cover shadow-xl"
-//                         style={{ height: '20rem', width: '35rem' }}
-//                     />
-//                 </div>
-//             </div>
-//         </section>
-//     );
-// };
-
-// export default Hero;
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane, faBriefcase } from '@fortawesome/free-solid-svg-icons';
-import { Link } from "react-router-dom"; // Make sure this is at the top
+const highlights = [
+  { title: "Software Engineering Internship", detail: "Shispare" },
+  { title: "Full Stack Development", detail: "React \u2022 Next.js \u2022 NestJS" },
+  { title: "Backend Development", detail: "REST APIs \u2022 JWT \u2022 RBAC" },
+  {
+    title: "Application Optimization",
+    detail: "Reduced redundant authenticated-user API requests through improved client-side state management.",
+  },
+];
 
 const Hero = () => {
-    return (
-        <section id="portfolio" className="bg-gray-50 text-gray-900 py-24 px-6 md:px-12 lg:px-20">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+  const handleSectionLink = (event, id) => {
+    event.preventDefault();
+    document.getElementById(id)?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "start",
+    });
+  };
 
-                {/* Text Content - 2/5 */}
-                <div className="lg:col-span-2 space-y-6 text-center lg:text-left">
-                    <p className="text-[28px] text-gray-600 font-extrabold mb-0">Hi</p>
+  return (
+    <section id="portfolio" className="hero-section" aria-labelledby="hero-title">
+      <div className="section-shell hero-container">
+        <div className="hero-grid">
+          <div className="hero-content">
+            <p className="hero-eyebrow">Available for full-time software engineering roles</p>
+            <h1 id="hero-title" className="hero-title">Taskeen Sadiq</h1>
+            <p className="hero-subtitle">Software Engineer</p>
 
-                    <h1 className="text-[28px] text-gray-600 font-extrabold">
-                        I'm <span className="text-fuchsia-600">Taskeen</span><br />
-                        a frontend developer
-                    </h1>
+            <p className="hero-lead">
+              Building modern full-stack web applications with React, Next.js, Angular, Node.js, and NestJS.
+            </p>
 
-                    <p className="text-gray-700 text-base md:text-lg max-w-xl mx-auto lg:mx-0">
-                        I design and build beautiful, fast, and accessible web experiences using <strong>React</strong>, <strong>Angular</strong>, and cutting-edge tools. Let's create something great!
-                    </p>
+            <p className="hero-description">
+              Software Engineer with hands-on experience developing full-stack web applications using React, Next.js, Angular, Node.js, and NestJS. Completed a Software Engineering internship at Shispare, building REST APIs, authentication, RBAC, and responsive user interfaces in an Agile environment.
+            </p>
 
-                    {/* Buttons */}
-                    <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-6">
-                        <a
-                            href="https://mail.google.com/mail/?view=cm&fs=1&to=taskeensadiq49@gmail.com&su=Freelance%20Inquiry"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-5 py-3 rounded-[8px] text-sm font-semibold shadow-md transition duration-200 flex items-center gap-2"
-                        >
-                            <FontAwesomeIcon icon={faPaperPlane} />
-                            <span>Hire Me</span>
-                        </a>
+            <ul className="hero-skills" aria-label="Core technologies">
+              {technologies.map((technology) => (
+                <li key={technology}>{technology}</li>
+              ))}
+            </ul>
 
-                        {/* <button className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded-[8px] text-sm font-semibold shadow-md transition duration-200 flex items-center gap-2">
-              <FontAwesomeIcon icon={faBriefcase} />
-              <span>View Projects</span>
-            </button> */}
-
-
-
-                        <Link
-                            to="/projects"
-                            className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-[8px] text-sm font-semibold shadow-md transition duration-200 flex items-center gap-2"
-                        >
-                            <FontAwesomeIcon icon={faBriefcase} />
-                            <span>View Projects</span>
-                        </Link>
-
-                    </div>
-                </div>
-
-                {/* Image - 3/5 */}
-                <div className="lg:col-span-3 flex justify-center">
-                <img
-  src={`${import.meta.env.BASE_URL}assets/portfolio-new.jpg`}
-  alt="Abstract Portfolio Illustration"
-  className="w-full max-w-3xl rounded-xl shadow-xl object-cover"
-  style={{ height: '20rem' }}
-/>
-
-
-
-                </div>
+            <div className="hero-actions">
+              <a
+                className="btn-hero btn-hero--primary"
+                href="#featured-projects"
+                onClick={(event) => handleSectionLink(event, "featured-projects")}
+              >
+                View Projects <ArrowRight size={15} aria-hidden="true" />
+              </a>
+              <a
+                className="btn-hero btn-hero--secondary"
+                href={resumeFile}
+                download="Taskeen-Sadiq-Resume.pdf"
+              >
+                Download Resume <Download size={14} aria-hidden="true" />
+              </a>
+              <a
+                className="hero-contact-link"
+                href="https://github.com/taskeen77"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Taskeen Sadiq's GitHub profile"
+              >
+                GitHub <Github size={14} aria-hidden="true" />
+              </a>
             </div>
-        </section>
-    );
+
+            <p className="hero-apprenticeship">
+              Software Engineering Apprentice @ Shispare <span aria-hidden="true">&bull;</span> Jan 2026 {"\u2013"} Apr 2026
+            </p>
+
+            <ul className="hero-availability" aria-label="Current availability">
+              <li><CheckCircle2 size={14} aria-hidden="true" /> Open to Full-Time Opportunities</li>
+              <li><CheckCircle2 size={14} aria-hidden="true" /> Available for Selected Freelance Projects</li>
+            </ul>
+          </div>
+
+          <div className="hero-visual">
+            <div className="hero-image-frame">
+              <img
+                src={heroImage}
+                alt="Full-stack development technology stack including React, Next.js, TypeScript, Angular, Node.js, Tailwind CSS, Express, MongoDB, GitHub, VS Code, and Postman"
+                width="1536"
+                height="1024"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+
+        <dl className="hero-stats" aria-label="Software engineering experience highlights">
+          {highlights.map(({ title, detail }) => (
+            <div className="stat-item" key={title}>
+              <dt className="stat-value">{title}</dt>
+              <dd className="stat-label">{detail}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
 };
 
 export default Hero;

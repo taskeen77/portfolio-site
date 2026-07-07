@@ -1,96 +1,107 @@
-import { FaGraduationCap } from "react-icons/fa";
+import { Award, GraduationCap } from "lucide-react";
+import { useEffect, useRef } from "react";
+
+const entries = [
+  {
+    title: "BS Computer Science (Data Science)",
+    meta: "NED University of Engineering & Technology \u00b7 CGPA 3.57 \u00b7 2022 - 2026",
+    icon: GraduationCap,
+    bullets: [
+      "Frontend web development",
+      "Data analytics",
+      "Business intelligence",
+      "Business analysis",
+    ],
+  },
+  {
+    title: "Certifications & Bootcamps",
+    meta: "10Pearls \u00b7 Google/Coursera \u00b7 Huawei \u00b7 YouTube",
+    icon: Award,
+    bullets: [
+      "React & Angular",
+      "Python for data analysis",
+      "Business analyst for pre-sales professional",
+      "Data Analytics and Business Intelligence",
+    ],
+  },
+];
 
 const Education = () => {
+  const educationRef = useRef(null);
+
+  useEffect(() => {
+    const section = educationRef.current;
+
+    if (!section) {
+      return undefined;
+    }
+
+    const cards = section.querySelectorAll(".education-entry");
+    const observer = new IntersectionObserver(
+      (items) => {
+        items.forEach((item) => {
+          if (item.isIntersecting) {
+            item.target.classList.add("is-visible");
+            observer.unobserve(item.target);
+          }
+        });
+      },
+      {
+        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.18,
+      },
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section
-      id="education"
-      style={{ padding: "4rem 2rem" }}
-      className="bg-white text-gray-900"
-    >
-      <h2
-        style={{
-          fontSize: "2rem",
-          fontWeight: "bold",
-          marginBottom: "2.5rem",
-          textAlign: "center",
-        }}
-        className="text-fuchsia-500"
-      >
-        <FaGraduationCap style={{ display: "inline", marginRight: "10px" }} />
-        Education
-      </h2>
-
-      <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-        {/* NED University Entry */}
-        <div
-          style={{
-            padding: "1.5rem",
-            borderRadius: "1rem",
-            marginBottom: "1.5rem",
-            backgroundColor: "#f9f5ff",
-            borderLeft: "4px solid #d946ef",
-            boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
-          }}
-        >
-          <h3
-            style={{ fontSize: "1.25rem", fontWeight: "bold" }}
-            className="text-fuchsia-600"
-          >
-            Bachelor of Science in Computer Science
-          </h3>
-          <p
-            style={{ fontSize: "0.95rem", marginBottom: "0.5rem", color: "#555" }}
-          >
-            NED University • 2022 – 2026
-          </p>
-          <p style={{ fontSize: "0.9rem", color: "#666" }}>
-            Specialization in <strong>Data Science</strong>. Gained skills in:
-            <br />
-            <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem', listStyle: 'disc' }}>
-              <li>Frontend Web Development</li>
-              <li>Data Analytics</li>
-              <li>Business Intelligence</li>
-              <li>Business Analysis</li>
-            </ul>
-          </p>
-        </div>
-
-        {/* Certifications Entry */}
-        <div
-          style={{
-            padding: "1.5rem",
-            borderRadius: "1rem",
-            marginBottom: "1.5rem",
-            backgroundColor: "#f9f5ff",
-            borderLeft: "4px solid #d946ef",
-            boxShadow: "0 5px 15px rgba(0,0,0,0.05)",
-          }}
-        >
-          <h3
-            style={{ fontSize: "1.25rem", fontWeight: "bold" }}
-            className="text-fuchsia-600"
-          >
-            Certifications & Bootcamps
-          </h3>
-          <p
-            style={{ fontSize: "0.95rem", marginBottom: "0.5rem", color: "#555" }}
-          >
-            10Pearls, Coursera (Google), YouTube
-          </p>
-          <p style={{ fontSize: "0.9rem", color: "#666" }}>
-            Completed specialized training in:
-            <ul style={{ marginTop: '0.5rem', paddingLeft: '1.25rem', listStyle: 'disc' }}>
-              <li>React & Angular</li>
-              <li>Python for Data Analysis</li>
-              <li>Business Analyst for Pre-Sales Professional</li>
-              <li>Data Analytics – Google (Coursera)</li>
-              <li>Business Intelligence – Google (Coursera)</li>
-            </ul>
-            Passionate about continuous learning and building practical skills through hands-on projects and real-world case studies.
-          </p>
-        </div>
+    <div ref={educationRef} className="education-section" aria-labelledby="education-title">
+      <div className="education-heading">
+        <p className="education-eyebrow">Education</p>
+        <h2 id="education-title">Academic foundation plus practical self-directed learning.</h2>
+        <p>
+          A focused computer science background supported by hands-on bootcamps,
+          certifications, and continuous learning in modern software engineering.
+        </p>
       </div>
-    </section>
+
+      <ol className="education-timeline" aria-label="Education and certifications timeline">
+        {entries.map((entry, entryIndex) => {
+          const EducationIcon = entry.icon;
+
+          return (
+            <li
+              key={entry.title}
+              className="education-entry"
+              style={{ "--education-index": entryIndex }}
+            >
+              <article className="education-card">
+                <div className="education-card__header">
+                  <span className="education-card__icon" aria-hidden="true">
+                    <EducationIcon size={21} />
+                  </span>
+                  <div>
+                    <h3>{entry.title}</h3>
+                    <p>{entry.meta}</p>
+                  </div>
+                </div>
+
+                <ul className="education-focus-list" aria-label={`${entry.title} focus areas`}>
+                  {entry.bullets.map((bullet, bulletIndex) => (
+                    <li key={bullet} style={{ "--education-bullet-index": bulletIndex }}>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
   );
 };
 

@@ -1,335 +1,144 @@
-// // import React from "react";
-// // import { FaLaptopCode, FaMobileAlt, FaPaintBrush } from "react-icons/fa";
+import {
+  CalendarDays,
+  Code2,
+  Settings,
+} from "lucide-react";
+import { useEffect, useRef } from "react";
 
-// // const Services = () => {
-// //   return (
-// //     <section
-// //       id="services"
-// //       style={{ padding: "4rem 2rem", textAlign: "center" }}
-// //       className="bg-gray-50 text-gray-900"
-// //     >
-// //       <h2
-// //         style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "2rem" }}
-// //         className="text-fuchsia-500"
-// //       >
-// //         Services I Offer
-// //       </h2>
+const experiences = [
+  {
+    title: "Software Engineering Apprentice",
+    company: "Shispare",
+    date: "Jan 2026 \u2013 Apr 2026",
+    startDate: "2026-01",
+    location: "Karachi, Pakistan",
+    icon: Settings,
+    summary:
+      "Built and maintained full-stack features for production web applications in an Agile software engineering environment.",
+    contributions: [
+      <>Developed full-stack features using <strong>Next.js</strong> and <strong>NestJS</strong>.</>,
+      <>Built secure <strong>REST APIs</strong>, <strong>JWT authentication</strong>, and <strong>RBAC</strong>.</>,
+      <>Optimized authenticated user state management by reducing redundant WhoAmI API requests through improved client-side caching and refresh logic.</>,
+      <>Worked with <strong>MongoDB</strong>, SQL databases, debugging, testing, and sprint delivery.</>,
+    ],
+    technologies: ["Next.js", "NestJS", "Node.js", "MongoDB", "REST APIs", "JWT", "RBAC"],
+  },
+  {
+    title: "Angular Developer (Project-Based)",
+    company: "Browsefy Tech",
+    date: "Jan 2025 \u2013 Sep 2025",
+    startDate: "2025-01",
+    location: "Remote",
+    icon: Code2,
+    summary:
+      "Developed responsive Angular applications with reusable components and seamless API integration.",
+    contributions: [
+      <>Built reusable UI components using <strong>Angular</strong>, <strong>TypeScript</strong>, and <strong>SCSS</strong>.</>,
+      <>Integrated <strong>REST APIs</strong> and improved frontend reliability.</>,
+      <>Enhanced application usability using <strong>HCI principles</strong>.</>,
+    ],
+    technologies: ["Angular", "TypeScript", "SCSS", "REST APIs"],
+  },
+];
 
-// //       <div
-// //         style={{
-// //           display: "flex",
-// //           flexWrap: "wrap",
-// //           justifyContent: "center",
-// //           gap: "2rem",
-// //           maxWidth: "1000px",
-// //           margin: "0 auto",
-// //         }}
-// //       >
-// //         {/* Service 1 */}
-// //         <div
-// //           style={{
-// //             padding: "2rem",
-// //             borderRadius: "1rem",
-// //             boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-// //             backgroundColor: "#fff",
-// //             flex: "1 1 280px",
-// //             maxWidth: "300px",
-// //             cursor: "pointer",
-// //             transition: "transform 0.3s",
-// //           }}
-// //           className="hover:shadow-xl hover:-translate-y-1"
-// //         >
-// //           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-// //             <FaLaptopCode className="text-fuchsia-500 text-3xl" style={{ cursor: "pointer" }} />
-// //           </div>
-// //           <h3
-// //             style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}
-// //           >
-// //             Web Development
-// //           </h3>
-// //           <p className="text-gray-600 text-sm leading-relaxed">
-// //             Building responsive, accessible, and modern web applications using HTML, CSS, JavaScript, React, and Angular.
-// //           </p>
-// //         </div>
+const Experience = () => {
+  const experienceRef = useRef(null);
 
-// //         {/* Service 2 */}
-// //         <div
-// //           style={{
-// //             padding: "2rem",
-// //             borderRadius: "1rem",
-// //             boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-// //             backgroundColor: "#fff",
-// //             flex: "1 1 280px",
-// //             maxWidth: "300px",
-// //             cursor: "pointer",
-// //             transition: "transform 0.3s",
-// //           }}
-// //           className="hover:shadow-xl hover:-translate-y-1"
-// //         >
-// //           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-// //             <FaMobileAlt className="text-fuchsia-500 text-3xl" style={{ cursor: "pointer" }} />
-// //           </div>
-// //           <h3
-// //             style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}
-// //           >
-// //             Mobile-Friendly Design
-// //           </h3>
-// //           <p className="text-gray-600 text-sm leading-relaxed">
-// //             Creating sleek interfaces that adapt beautifully to all screen sizes — mobile, tablet, and desktop.
-// //           </p>
-// //         </div>
+  useEffect(() => {
+    const container = experienceRef.current;
+    if (!container) return undefined;
 
-// //         {/* Service 3 */}
-// //      <div
-// //   style={{
-// //     padding: "2rem",
-// //     borderRadius: "1rem",
-// //     boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-// //     backgroundColor: "#fff",
-// //     flex: "1 1 280px",
-// //     maxWidth: "300px",
-// //     cursor: "pointer",
-// //     transition: "transform 0.3s",
-// //   }}
-// //   className="hover:shadow-xl hover:-translate-y-1"
-// // >
-// //   <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-// //     <FaPaintBrush className="text-fuchsia-500 text-3xl" style={{ cursor: "pointer" }} />
-// //   </div>
-// //   <h3
-// //     style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}
-// //   >
-// //     Data Analytics
-// //   </h3>
-// //   <p className="text-gray-600 text-sm leading-relaxed">
-// //     Turning raw data into meaningful insights to support smarter business decisions and improve strategy.
-// //   </p>
-// // </div>
+    const items = container.querySelectorAll(".experience-entry");
+    if (!("IntersectionObserver" in window)) {
+      items.forEach((item) => item.classList.add("is-visible"));
+      return undefined;
+    }
 
-// //       </div>
-// //     </section>
-// //   );
-// // };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8%" },
+    );
 
-// // export default Services;
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
 
-
-
-
-// import React from "react";
-// import { FaLaptopCode, FaMobileAlt, FaPaintBrush } from "react-icons/fa";
-
-// const Services = () => {
-//   return (
-//     <section
-//       id="services"
-//       style={{ padding: "4rem 2rem", textAlign: "center" }}
-//       className="bg-gray-50 text-gray-900"
-//     >
-//       <h2
-//         style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "2rem" }}
-//         className="text-fuchsia-500"
-//       >
-//         Services I Offer
-//       </h2>
-
-//       <div
-//         style={{
-//           display: "flex",
-//           flexWrap: "wrap",
-//           justifyContent: "center",
-//           gap: "2rem",
-//           maxWidth: "1000px",
-//           margin: "0 auto",
-//         }}
-//       >
-//         {/* Service 1 */}
-//         <div
-//           style={{
-//             padding: "2rem",
-//             borderRadius: "1rem",
-//             boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-//             backgroundColor: "#fff",
-//             flex: "1 1 280px",
-//             maxWidth: "300px",
-//             cursor: "pointer",
-//             transition: "transform 0.3s",
-//           }}
-//           className="hover:shadow-xl hover:-translate-y-1"
-//         >
-//           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-//             <FaLaptopCode className="text-fuchsia-500 text-3xl" style={{ cursor: "pointer" }} />
-//           </div>
-//           <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
-//             Frontend using Angular
-//           </h3>
-//           <p className="text-gray-600 text-sm leading-relaxed">
-//             Developing robust and scalable single-page applications with Angular, TypeScript, and RxJS.
-//           </p>
-//         </div>
-
-//         {/* Service 2 */}
-//         <div
-//           style={{
-//             padding: "2rem",
-//             borderRadius: "1rem",
-//             boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-//             backgroundColor: "#fff",
-//             flex: "1 1 280px",
-//             maxWidth: "300px",
-//             cursor: "pointer",
-//             transition: "transform 0.3s",
-//           }}
-//           className="hover:shadow-xl hover:-translate-y-1"
-//         >
-//           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-//             <FaMobileAlt className="text-fuchsia-500 text-3xl" style={{ cursor: "pointer" }} />
-//           </div>
-//           <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
-//             Mobile-Friendly Design
-//           </h3>
-//           <p className="text-gray-600 text-sm leading-relaxed">
-//             Creating sleek interfaces that adapt beautifully to all screen sizes — mobile, tablet, and desktop.
-//           </p>
-//         </div>
-
-//         {/* Service 3 */}
-//         <div
-//           style={{
-//             padding: "2rem",
-//             borderRadius: "1rem",
-//             boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-//             backgroundColor: "#fff",
-//             flex: "1 1 280px",
-//             maxWidth: "300px",
-//             cursor: "pointer",
-//             transition: "transform 0.3s",
-//           }}
-//           className="hover:shadow-xl hover:-translate-y-1"
-//         >
-//           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-//             <FaPaintBrush className="text-fuchsia-500 text-3xl" style={{ cursor: "pointer" }} />
-//           </div>
-//           <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
-//             Frontend using React
-//           </h3>
-//           <p className="text-gray-600 text-sm leading-relaxed">
-//             Crafting interactive, component-driven UIs with React, hooks, and performance optimization.
-//           </p>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Services;
-
-
-
-import React from "react";
-import { FaLaptopCode, FaMobileAlt, FaReact } from "react-icons/fa";
-
-const Services = () => {
   return (
-    <section
-      id="services"
-      style={{ padding: "4rem 2rem", textAlign: "center" }}
-      className="bg-gray-50 text-gray-900"
-    >
-      <h2
-        style={{ fontSize: "2rem", fontWeight: "bold", marginBottom: "2rem" }}
-        className="text-fuchsia-500"
-      >
-        Services I Offer
-      </h2>
+    <div ref={experienceRef} className="experience-section" aria-labelledby="experience-title">
+      <header className="experience-heading">
+        <p className="experience-eyebrow">Experience</p>
+        <h2 id="experience-title">Professional experience building modern web applications.</h2>
+        <p>
+          Hands-on experience developing full-stack applications, secure backend systems, and responsive user interfaces in Agile development environments.
+        </p>
+      </header>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "2rem",
-          maxWidth: "1000px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Service 1: Angular */}
-        <div
-          style={{
-            padding: "2rem",
-            borderRadius: "1rem",
-            boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-            backgroundColor: "#fff",
-            flex: "1 1 280px",
-            maxWidth: "300px",
-            cursor: "pointer",
-            transition: "transform 0.3s",
-          }}
-          className="hover:shadow-xl hover:-translate-y-1"
-        >
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-            <FaLaptopCode className="text-fuchsia-500 text-3xl" />
-          </div>
-          <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
-            Frontend using Angular
-          </h3>
-          <p className="text-gray-600 text-sm leading-relaxed">
-            Developing robust and scalable single-page applications with Angular, TypeScript, and RxJS.
-          </p>
-        </div>
+      <ol className="experience-timeline" aria-label="Professional experience timeline">
+        {experiences.map((experience, experienceIndex) => {
+          const Icon = experience.icon;
+          return (
+            <li
+              className="experience-entry"
+              key={`${experience.company}-${experience.title}`}
+              style={{ "--experience-index": experienceIndex }}
+            >
+              <span className="experience-node" aria-hidden="true">
+                <span>{experience.startDate.slice(0, 4)}</span>
+              </span>
 
-        {/* Service 2: React */}
-        <div
-          style={{
-            padding: "2rem",
-            borderRadius: "1rem",
-            boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-            backgroundColor: "#fff",
-            flex: "1 1 280px",
-            maxWidth: "300px",
-            cursor: "pointer",
-            transition: "transform 0.3s",
-          }}
-          className="hover:shadow-xl hover:-translate-y-1"
-        >
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-            <FaReact className="text-fuchsia-500 text-3xl" />
-          </div>
-          <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
-            Frontend using React
-          </h3>
-          <p className="text-gray-600 text-sm leading-relaxed">
-            Crafting interactive, component-driven UIs with React, hooks, and performance optimization.
-          </p>
-        </div>
+              <article className="experience-card">
+                <div className="experience-card__topline">
+                  <span className="experience-role-icon" aria-hidden="true">
+                    <Icon size={21} strokeWidth={1.8} />
+                  </span>
+                  <div className="experience-card__identity">
+                    <div className="experience-card__title-row">
+                      <h3>{experience.title}</h3>
+                      <p className="experience-company">
+                        {experience.company} <span aria-hidden="true">{"\u2022"}</span> {experience.location}
+                      </p>
+                    </div>
+                    <div className="experience-meta" aria-label="Employment date">
+                      <time dateTime={experience.startDate}>
+                        <CalendarDays size={14} aria-hidden="true" /> {experience.date}
+                      </time>
+                    </div>
+                  </div>
+                </div>
 
-        {/* Service 3: Mobile Design */}
-        <div
-          style={{
-            padding: "2rem",
-            borderRadius: "1rem",
-            boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
-            backgroundColor: "#fff",
-            flex: "1 1 280px",
-            maxWidth: "300px",
-            cursor: "pointer",
-            transition: "transform 0.3s",
-          }}
-          className="hover:shadow-xl hover:-translate-y-1"
-        >
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-            <FaMobileAlt className="text-fuchsia-500 text-3xl" />
-          </div>
-          <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
-            Mobile-Friendly Design
-          </h3>
-          <p className="text-gray-600 text-sm leading-relaxed">
-            Creating sleek interfaces that adapt beautifully to all screen sizes — mobile, tablet, and desktop.
-          </p>
-        </div>
-      </div>
-    </section>
+                <p className="experience-summary">{experience.summary}</p>
+
+                <div className="experience-contributions">
+                  <h4>Highlights</h4>
+                  <ul>
+                    {experience.contributions.map((contribution, index) => (
+                      <li key={index}>{contribution}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="experience-technologies">
+                  <span>Technologies:</span>
+                  <ul className="experience-tags" aria-label={`${experience.title} technologies`}>
+                    {experience.technologies.map((technology, tagIndex) => (
+                      <li key={technology} style={{ "--tag-index": tagIndex }}>{technology}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
   );
 };
 
-export default Services;
+export default Experience;

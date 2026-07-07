@@ -1,241 +1,217 @@
+import { ArrowRight, FolderGit2, Globe, Server } from "lucide-react";
 
-
-import { Code2, Globe, FolderGit2 } from 'lucide-react';
+const asset = (path) => `${import.meta.env.BASE_URL}assets/${path}`;
 
 const projects = [
   {
-    title: 'SubMind',
+    title: "Authentication & Product Management",
     description:
-      'Subscription Mindmap (SubMind) is a full-featured web app built to help users manage and visualize their subscriptions with ease. It includes full CRUD operations, an intuitive dashboard with interactive analytics. Note: This app is hosted on Replit. If the server is temporarily inactive, it may take a few moments to spin up or fall back to a minimal display.',
-    stack: ['React', 'Chart.js', 'Lucide Icons', 'Tailwind CSS', 'CRUD', 'LocalStorage'],
-    github: 'https://github.com/taskeen77/SubMind',
-    demo: 'https://taskeen77.github.io/SubMind/',
-    image: `${import.meta.env.BASE_URL}assets/SubMind.png`,
-    accent: '#059669',
-    bg: '#f0fdfa',
+      "A full-stack role-based product management system with separate frontend and backend repositories. It includes authentication, role management, protected product workflows, inventory-style product tables, and clean admin actions for adding, editing, archiving, and deleting products.",
+    stack: ["React", "Node.js", "Express", "Authentication", "RBAC", "REST APIs"],
+    githubLinks: [
+      {
+        label: "Backend",
+        href: "https://github.com/taskeensadiq/authentication-backend",
+        icon: Server,
+      },
+      {
+        label: "Frontend",
+        href: "https://github.com/taskeensadiq/authentication-frontend",
+        icon: FolderGit2,
+      },
+    ],
+    preview: "product-management",
+    accent: "#2563eb",
+    bg: "#f8fbff",
   },
   {
-    title: 'Book Inventory Manager',
+    title: "SubMind",
     description:
-      'A simple yet complete Book Inventory CRUD app built with Angular and Bootstrap. It uses JSON Server for backend simulation, deployed on Replit, and features graceful fallback using a local JSON file when the server is offline.',
-    stack: ['Angular', 'Bootstrap', 'JSON Server', 'TypeScript', 'CRUD', 'Replit'],
-    github: 'https://github.com/taskeen77/books-CRUD',
-    demo: 'https://25c1ab03-a696-49ec-8068-ba345783ecc4-00-38igbtid0xv6h.sisko.replit.dev:4200/books-CRUD/books',
-    image: `${import.meta.env.BASE_URL}assets/book inventory.png`,
-    accent: '#7b3f00',
-    bg: '#fef6f0',
+      "Subscription Mindmap (SubMind) is a full-featured web app built to help users manage and visualize their subscriptions with ease. It includes full CRUD operations, an intuitive dashboard with interactive analytics. Note: This app is hosted on Replit. If the server is temporarily inactive, it may take a few moments to spin up or fall back to a minimal display.",
+    stack: ["React", "Chart.js", "Lucide Icons", "Tailwind CSS", "CRUD", "LocalStorage"],
+    github: "https://github.com/taskeen77/SubMind",
+    demo: "https://taskeen77.github.io/SubMind/",
+    image: asset("SubMind.png"),
+    accent: "#059669",
+    bg: "#f0fdfa",
   },
   {
-    title: 'Imperium Clone',
+    title: "Book Inventory Manager",
     description:
-      'A visually faithful clone of the Imperium Dynamics landing page, developed using Angular and styled with Ng Zorro. Built with a component-first architecture, responsive layout, and custom theming to replicate brand identity.',
-    stack: ['Angular', 'Ng Zorro', 'SCSS', 'TypeScript', 'Responsive Design', 'UI Clone'],
-    demo: 'https://www.loom.com/share/40c9865eca7d4990bebf53b2a377a03c',
-    image: `${import.meta.env.BASE_URL}assets/imperium Clone.png`,
-    accent: '#6b21a8',
-    bg: '#f9f5ff',
+      "A simple yet complete Book Inventory CRUD app built with Angular and Bootstrap. It uses JSON Server for backend simulation, deployed on Replit, and features graceful fallback using a local JSON file when the server is offline.",
+    stack: ["Angular", "Bootstrap", "JSON Server", "TypeScript", "CRUD", "Replit"],
+    github: "https://github.com/taskeen77/books-CRUD",
+    demo: "https://25c1ab03-a696-49ec-8068-ba345783ecc4-00-38igbtid0xv6h.sisko.replit.dev:4200/books-CRUD/books",
+    image: asset("book inventory.png"),
+    accent: "#7b3f00",
+    bg: "#fef6f0",
   },
   {
-    title: 'Mini UI',
+    title: "Imperium Clone",
     description:
-      'Mini UI is a collection of modern, reusable interface components built with both Angular (using Ng Zorro) and React (using Tailwind). Designed for rapid prototyping and consistent UI development, it includes polished navbars, buttons, cards, and form components — all themed for visual harmony and adaptability.',
-    stack: ['Angular', 'React', 'Ng Zorro', 'Tailwind CSS', 'TypeScript', 'Component Library'],
-    demo: 'https://www.loom.com/share/cf3e5dd15e054b02bca17899a6b5e01c',
-    image: `${import.meta.env.BASE_URL}assets/mini-ui.png`,
-    accent: '#0d9488',
-    bg: '#f0fdfa',
+      "A visually faithful clone of the Imperium Dynamics landing page, developed using Angular and styled with Ng Zorro. Built with a component-first architecture, responsive layout, and custom theming to replicate brand identity.",
+    stack: ["Angular", "Ng Zorro", "SCSS", "TypeScript", "Responsive Design", "UI Clone"],
+    demo: "https://www.loom.com/share/40c9865eca7d4990bebf53b2a377a03c",
+    image: asset("imperium Clone.png"),
+    accent: "#6b21a8",
+    bg: "#f9f5ff",
   },
   {
-    title: 'Navbar Showcase',
-    description: 'A collection of responsive navigation bar designs built with HTML, SCSS, Angular, ng-zorro and modern layout practices.',
-    stack: ['HTML', 'SCSS', 'Angular', 'Responsive Design', 'Ng-Zorro'],
-    image: `${import.meta.env.BASE_URL}assets/Navbars.png`,
-    accent: '#1d4ed8',
-    bg: '#e1faee',
+    title: "Mini UI",
+    description:
+      "Mini UI is a collection of modern, reusable interface components built with both Angular (using Ng Zorro) and React (using Tailwind). Designed for rapid prototyping and consistent UI development, it includes polished navbars, buttons, cards, and form components \u2014 all themed for visual harmony and adaptability.",
+    stack: ["Angular", "React", "Ng Zorro", "Tailwind CSS", "TypeScript", "Component Library"],
+    demo: "https://www.loom.com/share/cf3e5dd15e054b02bca17899a6b5e01c",
+    image: asset("mini-ui.png"),
+    accent: "#0d9488",
+    bg: "#f0fdfa",
+  },
+  {
+    title: "Navbar Showcase",
+    description:
+      "A collection of responsive navigation bar designs built with HTML, SCSS, Angular, ng-zorro and modern layout practices.",
+    stack: ["HTML", "SCSS", "Angular", "Responsive Design", "Ng-Zorro"],
+    image: asset("Navbars.png"),
+    accent: "#1d4ed8",
+    bg: "#e1faee",
   },
 ];
 
-
-const slate = '#0f172a';
-
-const ProjectSection = ({ projects }) => (
-  <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: '1fr', marginBottom: '2rem' }}>
-    {projects.map((project, index) => (
-      <div
-        key={index}
-        style={{
-          borderRadius: '12px',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-          backgroundColor: project.bg,
-          overflow: 'hidden',
-          transition: 'transform 0.3s',
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-4px)')}
-        onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
-        className="group"
-      >
-        {/* Image */}
-        <div style={{ position: 'relative' }} className="group"> 
-          <img
-            src={project.image}
-            alt={`${project.title} Screenshot`}
-            style={{
-              width: '100%',
-              height: 'auto',
-              display: 'block',
-            }}
-            className="cursor-pointer"
-          />
-          {project.demo && (
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="absolute inset-0"
-              style={{
-                backgroundColor: `${project.accent}80`,
-                color: '#ffffff',
-                textDecoration: 'none',
-                fontWeight: '600',
-                fontSize: '1rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: 0,
-                transition: 'opacity 0.3s',
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = '0')}
-            >
-              <Globe size={26} className="pr-2" />
-              Live Demo
-            </a>
-          )}
-        </div>
-
-        {/* Content */}
-        <div style={{ padding: '1.5rem' }}>
-          <h3
-            style={{
-              fontSize: '1.25rem',
-              fontWeight: '700',
-              color: project.accent,
-              marginBottom: '0.5rem',
-            }}
-          >
-            {project.title}
-          </h3>
-          <p style={{ marginBottom: '1rem', color: slate }}>{project.description}</p>
-
-          {/* Stack tags */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
-            {project.stack.map((tech, i) => (
-              <span
-                key={i}
-                style={{
-                  fontSize: '0.8rem',
-                  backgroundColor: '#ffffff',
-                  color: slate,
-                  border: `1px solid ${project.accent}`,
-                  padding: '0.25rem 0.75rem',
-                  borderRadius: '9999px',
-                }}
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          {/* Links */}
-          <div style={{ display: 'flex', gap: '1rem', fontSize: '0.9rem' }}>
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  color: project.accent,
-                  textDecoration: 'none',
-                  fontWeight: '600',
-                }}
-              >
-                <FolderGit2 size={16} />
-                GitHub
-              </a>
-            )}
-            {project.demo && (
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  color: project.accent,
-                  textDecoration: 'none',
-                  fontWeight: '600',
-                  
-                }}
-              >
-                <Globe size={16} />
-                Live Demo
-              </a>
-            )}
-          </div>
-        </div>
+const ProductManagementPreview = () => (
+  <div className="project-preview project-preview--product" aria-hidden="true">
+    <div className="product-preview__topline">
+      <div>
+        <strong>Product Management</strong>
+        <span>Manage products, roles, and inventory activity</span>
       </div>
-    ))}
+      <div className="product-preview__actions">
+        <span>Role (1)</span>
+        <span>Create Role</span>
+        <span>Add Product</span>
+      </div>
+    </div>
+
+    <div className="product-preview__table">
+      {["Monitor", "Screen", "Mobile phone", "Laptop charger", "Printer"].map((item, index) => (
+        <div className="product-preview__row" key={item}>
+          <span>{item}</span>
+          <span>{index % 2 === 0 ? "No description" : "Archived"}</span>
+          <span>{index % 2 === 0 ? "CREATED" : "MODIFIED"}</span>
+          <span>
+            <i />
+            <i />
+          </span>
+        </div>
+      ))}
+    </div>
   </div>
 );
 
-const Projects = () => {
-  const subMindProject = projects.filter((p) => p.title === 'SubMind');
-  const bookProject = projects.filter((p) => p.title !== 'SubMind');
+const ProjectVisual = ({ project }) => {
+  if (project.preview === "product-management") {
+    return <ProductManagementPreview />;
+  }
 
   return (
-    <section
-      id="projects"
+    <div className="project-card__image">
+      <img src={project.image} alt={`${project.title} screenshot`} loading="lazy" decoding="async" />
+      {project.demo && (
+        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-card__overlay">
+          <Globe size={18} aria-hidden="true" />
+          Live demo
+        </a>
+      )}
+    </div>
+  );
+};
+
+const ProjectCard = ({ project, featured = false }) => {
+  const githubLinks = project.githubLinks ?? (
+    project.github
+      ? [{ label: "GitHub", href: project.github, icon: FolderGit2 }]
+      : []
+  );
+
+  return (
+    <article
+      className={`project-card${featured ? " project-card--featured" : ""}`}
       style={{
-        backgroundColor: '#ffffff',
-        color: slate,
-        padding: '4rem 1rem',
+        "--project-accent": project.accent,
+        "--project-bg": project.bg,
       }}
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        {/* Only One Heading */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-          <Code2 size={24} />
-          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', color: slate }}>Projects</h2>
+      <ProjectVisual project={project} />
+
+      <div className="project-card__body">
+        <p className="project-card__eyebrow">{featured ? "Featured project" : "Project"}</p>
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
+
+        <ul className="project-card__tags" aria-label={`${project.title} technologies`}>
+          {project.stack.map((tech) => (
+            <li key={tech}>{tech}</li>
+          ))}
+        </ul>
+
+        <div className="project-card__links">
+          {githubLinks.map(({ href, label, icon: Icon }) => (
+            <a key={href} href={href} target="_blank" rel="noopener noreferrer">
+              <Icon size={16} aria-hidden="true" />
+              {label}
+            </a>
+          ))}
+          {project.demo && (
+            <a href={project.demo} target="_blank" rel="noopener noreferrer">
+              <ArrowRight size={16} aria-hidden="true" />
+              Live demo
+            </a>
+          )}
         </div>
+      </div>
+    </article>
+  );
+};
 
-        {/* SubMind Projects */}
-        <ProjectSection projects={subMindProject} />
-
-        {/* Book Inventory Projects */}
-        <ProjectSection projects={bookProject} />
+export const FeaturedProjects = () => {
+  return (
+    <div>
+      <div className="section-header projects-section-header">
+        <p className="eyebrow">Projects</p>
+        <h2 className="section-title">Full-stack and frontend projects built with practical engineering.</h2>
+        <p className="section-lead">
+          A polished selection of production-style applications, UI systems, CRUD workflows,
+          authentication features, and responsive frontend builds.
+        </p>
       </div>
 
-      {/* Responsive grid styles */}
-      <style>
-        {`
-          @media (min-width: 768px) {
-            #projects > div > div:last-child {
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-            }
-          }
+      <div className="projects-grid projects-grid--featured">
+        {projects.map((project, index) => (
+          <ProjectCard key={project.title} project={project} featured={index === 0} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
-          @media (min-width: 1024px) {
-            #projects > div > div:last-child {
-              grid-template-columns: repeat(3, 1fr);
-            }
-          }
-        `}
-      </style>
+const Projects = () => {
+  return (
+    <section id="projects" className="projects-page">
+      <div className="section-shell">
+        <div className="section-header projects-section-header">
+          <p className="eyebrow">Projects</p>
+          <h1 className="section-title">A complete view of the portfolio.</h1>
+          <p className="section-lead">
+            Explore the full project set, including full-stack authentication, CRUD applications,
+            UI clones, reusable component systems, and responsive frontend experiments.
+          </p>
+        </div>
+
+        <div className="projects-grid">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} featured={index === 0} />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
